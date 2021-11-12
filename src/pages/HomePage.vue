@@ -1,12 +1,16 @@
 <template>
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div v-for="p in posts" :key="p.id">
-        <Post :post="p" />
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div v-for="p in posts" :key="p.id">
+          <Post :post="p" />
+        </div>
       </div>
-    </div>
-    <div class="col-md-4">
-      <Extras />
+      <div class="col-md-4">
+        <div v-for="e in extras" :key="e.title">
+          <Extras :extra="e" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -24,19 +28,20 @@ export default {
     onMounted(async () => {
       try {
         await postsService.getAll();
+        await extrasService.getAll();
       } catch (error) {
         logger.error(error);
         Pop.toast(error.message, "error with something...");
       }
     });
-    onMounted(async () => {
-      try {
-        await extrasService.getAll();
-      } catch (error) {
-        logger.error(error);
-        Pop.toast(error.message, "something went wrong...");
-      }
-    });
+    // onMounted(async () => {
+    //   try {
+
+    //   } catch (error) {
+    //     logger.error(error);
+    //     Pop.toast(error.message, "something went wrong...");
+    //   }
+    // });
     return {
       posts: computed(() => AppState.posts),
       extras: computed(() => AppState.extras),

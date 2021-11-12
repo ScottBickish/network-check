@@ -6,7 +6,7 @@ class ExtrasService{
 async getAll(){
   const res = await api.get('api/ads')
   logger.log(res.data)
-  AppState.extras
+  AppState.extras = res.data
 }
 }
 
