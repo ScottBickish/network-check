@@ -5,7 +5,7 @@ import { api } from "./AxiosService"
 class ExtrasService{
 async getAll(){
   const res = await api.get('api/ads')
-  logger.log(res.data)
+  // logger.log(res.data)
   AppState.extras = res.data
 }
 }

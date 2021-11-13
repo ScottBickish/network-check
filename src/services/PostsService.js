@@ -5,8 +5,13 @@ import { api } from "./AxiosService"
 class PostsService{
 async getAll(){
   const res = await api.get('api/posts')
-  logger.log(res.data)
+  // logger.log(res.data)
   AppState.posts = res.data.posts
+}
+//  FIXME  search function 
+async search(query){
+ const res = await api.get('api/posts?query=', query)
+ logger.log(res.data)
 }
 
 // REVIEW how to get the data to render with computed? reactive? watcheffect?

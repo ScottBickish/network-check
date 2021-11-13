@@ -1,12 +1,17 @@
 // NOTE account is the logged in user
 
 <template>
-  <div class="text-end" v-if="account.id">
-    <button
-      class="mdi mdi-plus bg-success m-3"
-      data-bs-toggle="modal"
-      data-bs-target="#PostForm"
-    ></button>
+  <div class="d-flex justify-content-between">
+    <div class="m-3">
+      <Search />
+    </div>
+    <div class="text-end" v-if="account.id">
+      <button
+        class="mdi mdi-plus bg-success m-3"
+        data-bs-toggle="modal"
+        data-bs-target="#PostForm"
+      ></button>
+    </div>
   </div>
 
   <Modal id="PostForm">

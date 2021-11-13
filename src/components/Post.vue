@@ -10,7 +10,9 @@
       </div>
 
       <p class="mx-2">
-        <span><img class="pic" :src="post.creator.picture" alt="" /> </span>
+        <router-link :to="{ name: 'Profile', params: { id: post.creatorId } }">
+          <span><img class="pic" :src="post.creator.picture" alt="" /> </span
+        ></router-link>
         {{ post.creator.name }}
         <span v-if="post.creator.graduated"
           ><span class="mdi mdi-school"></span
@@ -43,6 +45,7 @@ import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { postsService } from "../services/PostsService";
 import { AppState } from "../AppState";
+import { useRouter } from "vue-router";
 export default {
   props: {
     post: {
@@ -51,6 +54,8 @@ export default {
     },
   },
   setup() {
+    const router = useRouter();
+
     return {
       async like(id) {
         try {
