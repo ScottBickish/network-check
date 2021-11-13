@@ -10,6 +10,11 @@
           ><span class="mdi mdi-school"></span
         ></span>
       </p>
+      <div v-if="post.imgUrl">
+        <center>
+          <img class="postpic" :src="post.imgUrl" alt="" />
+        </center>
+      </div>
       <p class="mx-2">
         {{ post.body }}
       </p>
@@ -45,5 +50,10 @@ export default {
   width: 50px;
   object-fit: cover;
   border-radius: 50%;
+}
+.postpic {
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
 }
 </style>
