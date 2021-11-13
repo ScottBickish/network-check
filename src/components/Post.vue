@@ -2,7 +2,11 @@
   <div class="post-component">
     <div class="card elevation-2 rounded m-2">
       <!-- FIXME this need to be converted to something more readable -->
-      <span class="mx-2">{{ post.creator.createdAt }}</span>
+      <div class="d-flex justify-content-between">
+        <span class="mx-2">{{ post.creator.createdAt }}</span>
+        <span @click="remove()" class="mdi mdi-delete"></span>
+      </div>
+
       <p class="mx-2">
         <span><img class="pic" :src="post.creator.picture" alt="" /> </span>
         {{ post.creator.name }}
@@ -12,15 +16,17 @@
       </p>
       <div v-if="post.imgUrl">
         <center>
-          <img class="postpic" :src="post.imgUrl" alt="" />
+          <img class="postpic my-2" :src="post.imgUrl" alt="" />
         </center>
       </div>
       <p class="mx-2">
         {{ post.body }}
       </p>
-      <span class="mx-2 mdi mdi-heart"
+      <!-- <span v-if="account.id == profile.id"> -->
+      <span @click="like()" class="mx-2 mdi mdi-heart"
         >Like Count: {{ post.likes.length }}</span
       >
+      <!-- </span> -->
     </div>
   </div>
 </template>
@@ -39,7 +45,26 @@ export default {
       required: true,
     },
   },
-  setup() {},
+  setup() {
+    return {
+      async like(id) {
+        try {
+          await postsService.like(id);
+        } catch (error) {
+          logger.error(error);
+          Pop.toast(error.message, "the like function is broken...");
+        }
+      },
+      async remove(id) {
+        try {
+          await postsService.remove(id);
+        } catch (error) {
+          logger.error(error);
+          Pop.toast(error.message, "Something went wrong...");
+        }
+      },
+    };
+  },
 };
 </script>
 

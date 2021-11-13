@@ -1,4 +1,19 @@
 <template>
+  <div class="text-end">
+    <!-- v-if="account.id === profile.id" -->
+    <button
+      class="mdi mdi-plus bg-success m-3"
+      data-bs-toggle="modal"
+      data-bs-target="#PostForm"
+    ></button>
+  </div>
+
+  <Modal id="PostForm">
+    <template #modal-title> What's on your mind? </template>
+
+    <template #modal-body> <PostForm /> </template>
+  </Modal>
+
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-8">
@@ -14,6 +29,9 @@
     </div>
   </div>
 </template>
+// TODO get posts to work almost there!!
+// TODO get likes to work
+// NOTE check out arts service for profile get..
 
 <script>
 import { computed, onMounted } from "@vue/runtime-core";
@@ -45,6 +63,7 @@ export default {
     return {
       posts: computed(() => AppState.posts),
       extras: computed(() => AppState.extras),
+      account: computed(() => AppState.account),
     };
   },
 };

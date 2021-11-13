@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center"></div>
     </router-link>
@@ -14,6 +14,7 @@
     >
       <span class="navbar-toggler-icon" />
     </button>
+
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
@@ -25,6 +26,7 @@
           </router-link>
         </li>
       </ul>
+      <h1 class="me-5">The Network</h1>
       <span class="navbar-text">
         <button
           class="
@@ -52,7 +54,7 @@
               :src="user.picture"
               alt="user photo"
               height="40"
-              class="rounded"
+              class="rounded ms-5"
             />
             <span class="mx-3 text-success lighten-30">{{ user.name }}</span>
           </div>
