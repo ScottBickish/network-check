@@ -27,11 +27,12 @@
 
 
 <script>
-import { ref } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
 import { postsService } from "../services/PostsService";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { Modal } from "bootstrap";
+import { AppState } from "../AppState";
 export default {
   setup() {
     const post = ref({});
@@ -42,6 +43,7 @@ export default {
         try {
           await postsService.create(post.value);
           Modal.getOrCreateInstance(document.getElementById("PostForm")).hide();
+          post.value = {};
         } catch (error) {
           logger.error(error);
           Pop.toast(error.message, "Something went wrong...");

@@ -4,7 +4,9 @@
       <!-- FIXME this need to be converted to something more readable -->
       <div class="d-flex justify-content-between">
         <span class="mx-2">{{ post.creator.createdAt }}</span>
-        <span @click="remove()" class="mdi mdi-delete"></span>
+        <div v-if="account.id == post.creatorId">
+          <span @click="remove(post.id)" class="mdi mdi-delete"></span>
+        </div>
       </div>
 
       <p class="mx-2">
@@ -23,8 +25,11 @@
         {{ post.body }}
       </p>
       <!-- <span v-if="account.id == profile.id"> -->
-      <span @click="like()" class="mx-2 mdi mdi-heart"
-        >Like Count: {{ post.likes.length }}</span
+      <span>
+        <div class="inline" v-if="account.id">
+          <a @click="like(post.id)" class="mx-2 mdi mdi-heart selectable"></a>
+        </div>
+        Like Count: {{ post.likes.length }}</span
       >
       <!-- </span> -->
     </div>
@@ -63,6 +68,7 @@ export default {
           Pop.toast(error.message, "Something went wrong...");
         }
       },
+      account: computed(() => AppState.account),
     };
   },
 };
@@ -80,5 +86,8 @@ export default {
   height: 300px;
   width: 300px;
   object-fit: cover;
+}
+.inline {
+  display: inline;
 }
 </style>

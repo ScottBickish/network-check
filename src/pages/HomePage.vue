@@ -1,6 +1,7 @@
+// NOTE account is the logged in user
+
 <template>
-  <div class="text-end">
-    <!-- v-if="account.id === profile.id" -->
+  <div class="text-end" v-if="account.id">
     <button
       class="mdi mdi-plus bg-success m-3"
       data-bs-toggle="modal"
@@ -29,8 +30,10 @@
     </div>
   </div>
 </template>
-// TODO get posts to work almost there!!
+
 // TODO get likes to work
+
+
 // NOTE check out arts service for profile get..
 
 <script>
@@ -64,6 +67,7 @@ export default {
       posts: computed(() => AppState.posts),
       extras: computed(() => AppState.extras),
       account: computed(() => AppState.account),
+      // profile: computed(() => AppState.profiles),
     };
   },
 };
