@@ -88,8 +88,8 @@ export default {
   border-radius: 50%;
 }
 .postpic {
-  height: 300px;
-  width: 300px;
+  height: 200px;
+  width: 200px;
   object-fit: cover;
 }
 .inline {

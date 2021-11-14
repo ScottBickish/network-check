@@ -1,4 +1,18 @@
 <template>
+  <Modal id="ProfileForm">
+    <template #modal-title> Create or Edit your profile here! </template>
+
+    <template #modal-body> <ProfileForm /> </template>
+  </Modal>
+  <div class="text-end" v-if="account.id === profile.id">
+    <center>
+      <button
+        class="mdi mdi-plus bg-success m-3"
+        data-bs-toggle="modal"
+        data-bs-target="#ProfileForm"
+      ></button>
+    </center>
+  </div>
   <center>
     <div class="text center">
       <h1>Welcome to {{ profile.name }}'s profile page!</h1>
@@ -60,6 +74,8 @@ export default {
   setup() {
     return {
       extras: computed(() => AppState.extras),
+      profile: computed(() => AppState.profile),
+      account: computed(() => AppState.account),
     };
   },
 };

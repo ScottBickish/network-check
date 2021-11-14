@@ -47,13 +47,16 @@ import Pop from "../utils/Pop";
 import { postsService } from "../services/PostsService";
 import { AppState } from "../AppState";
 import { extrasService } from "../services/ExtrasService";
+import { accountService } from "../services/AccountService";
 export default {
   name: "Home",
   setup() {
     onMounted(async () => {
       try {
+        await accountService.getAccount();
         await postsService.getAll();
         await extrasService.getAll();
+        logger.log(AppState.account);
       } catch (error) {
         logger.error(error);
         Pop.toast(error.message, "error with something...");

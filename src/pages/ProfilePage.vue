@@ -1,6 +1,7 @@
 <template>
-  <div class="row container-fluid"></div>
-  <Profile :profile="profile" :propost="propost" />
+  <div class="row container-fluid">
+    <Profile :profile="profile" :propost="propost" />
+  </div>
 </template>
 
 
@@ -29,6 +30,7 @@ export default {
       profile: computed(() => AppState.profile),
       propost: computed(() => AppState.propost),
       extras: computed(() => AppState.extras),
+      account: computed(() => AppState.account),
     };
   },
 };
