@@ -36,10 +36,9 @@
   </div>
 </template>
 
-// TODO get likes to work
 
 
-// NOTE check out arts service for profile get..
+
 
 <script>
 import { computed, onMounted } from "@vue/runtime-core";

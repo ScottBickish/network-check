@@ -3,7 +3,7 @@
     <div class="card elevation-2 rounded m-2">
       <!-- FIXME this need to be converted to something more readable -->
       <div class="d-flex justify-content-between">
-        <span class="mx-2">{{ post.creator.createdAt }}</span>
+        <span class="mx-2">{{ post.creator.createdAt }} </span>
         <div v-if="account.id == post.creatorId">
           <span @click="remove(post.id)" class="mdi mdi-delete"></span>
         </div>
