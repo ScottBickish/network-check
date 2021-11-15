@@ -20,11 +20,15 @@
     <template #modal-body> <PostForm /> </template>
   </Modal>
   <span>
-    <span v-if="page !== null">
-      <button @click="getPage(page)" class="btn btn-warning ms-2">Older</button>
+    <span v-if="state.older">
+      <button @click="getPage(state.older)" class="btn btn-warning ms-2">
+        Older
+      </button>
     </span>
-    <span v-if="page !== null">
-      <button @click="getNewer(page)" class="btn btn-danger ms-2">Newer</button>
+    <span v-if="state.newer">
+      <button @click="getNewer(state.newer)" class="btn btn-danger ms-2">
+        Newer
+      </button>
     </span>
   </span>
 
@@ -60,7 +64,7 @@
 
 
 <script>
-import { computed, onMounted } from "@vue/runtime-core";
+import { computed, onMounted, reactive } from "@vue/runtime-core";
 import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 import { postsService } from "../services/PostsService";
@@ -70,6 +74,10 @@ import { accountService } from "../services/AccountService";
 export default {
   name: "Home",
   setup() {
+    const state = reactive({
+      newer: computed(() => AppState.newer),
+      older: computed(() => AppState.older),
+    });
     onMounted(async () => {
       try {
         AppState.page = 1;
@@ -83,22 +91,22 @@ export default {
     });
 
     return {
+      state,
       posts: computed(() => AppState.posts),
       extras: computed(() => AppState.extras),
       account: computed(() => AppState.account),
-      page: computed(() => AppState.page),
-      totalPages: computed(() => AppState.totalPages),
+
       profile: computed(() => AppState.profiles),
-      async getPage(page) {
+      async getPage(url) {
         try {
-          await postsService.getPage(page);
+          await postsService.getPage(url);
         } catch (error) {
           logger.error(error);
         }
       },
-      async getNewer(page) {
+      async getNewer(url) {
         try {
-          await postsService.getNewer(page);
+          await postsService.getNewer(url);
         } catch (error) {
           logger.error(error);
         }

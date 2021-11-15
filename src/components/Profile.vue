@@ -32,11 +32,15 @@
     </div>
   </center>
   <span>
-    <span>
-      <button @click="getPage(page)" class="btn btn-warning m-3">Older</button>
+    <span v-if="state.older">
+      <button @click="getPage(state.older)" class="btn btn-warning m-3">
+        Older
+      </button>
     </span>
-    <span>
-      <button @click="getNewer(page)" class="btn btn-danger m-3">Newer</button>
+    <span v-if="state.newer">
+      <button @click="getNewer(state.newer)" class="btn btn-danger m-3">
+        Newer
+      </button>
     </span>
   </span>
 
@@ -78,7 +82,7 @@
 
 
 <script>
-import { computed } from "@vue/reactivity";
+import { computed, reactive } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import { logger } from "../utils/Logger";
 import { postsService } from "../services/PostsService";
@@ -95,31 +99,33 @@ export default {
     },
   },
 
-  setup(page) {
-    onMounted(async () => {
-      AppState.page = 1;
-      await postsService.getPage(page);
-      await postsService.getNewer(page);
+  setup() {
+    const state = reactive({
+      newer: computed(() => AppState.newer),
+      older: computed(() => AppState.older),
     });
+
     return {
+      state,
+      async getPage(url) {
+        try {
+          await postsService.getPage(url);
+        } catch (error) {
+          logger.error(error);
+        }
+      },
+      async getNewer(url) {
+        try {
+          await postsService.getNewer(url);
+        } catch (error) {
+          logger.error(error);
+        }
+      },
       post: computed(() => AppState.posts),
-      page: computed(() => AppState.page),
+
       extras: computed(() => AppState.extras),
       profile: computed(() => AppState.profile),
       account: computed(() => AppState.account),
-      // async getPage(page) {
-      //   try {
-
-      //   } catch (error) {
-      //     logger.error(error);
-      //   }
-      // },
-      // async getNewer(page) {
-      //   try {
-      //   } catch (error) {
-      //     logger.error(error);
-      //   }
-      // },
     };
   },
 };

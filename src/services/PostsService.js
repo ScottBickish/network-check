@@ -7,6 +7,8 @@ async getAll(){
   const res = await api.get('api/posts')
 
   AppState.posts = res.data.posts
+  AppState.newer = res.data.newer
+  AppState.older = res.data.older
 }
 
 async search(query){
@@ -32,22 +34,29 @@ async remove(id){
   AppState.posts = AppState.posts
   this.getAll()
 }
-async getPage(page){
-  const res = await api.get('api/posts?page=' + page)
+  // REVIEW same thing with only profile why wont it refresh its literally the same code
+async getPage(url = 'api/posts'){
+  const res = await api.get(url)
   AppState.posts = res.data.posts
+  AppState.newer = res.data.newer
+  AppState.older = res.data.older
+  // AppState.posts = res.data.posts
  
-  AppState.page++
+  // AppState.page++
   
  
 }
-async getNewer(page){
-  const res = await api.get('api/posts?page=' + page)
+async getNewer(url = 'api/posts'){
+  const res = await api.get(url)
   AppState.posts = res.data.posts
-  AppState.page--
-}
+  AppState.newer = res.data.newer
+  AppState.older = res.data.older
+//   AppState.posts = res.data.posts
+//   AppState.page--
+// }
 // async getPagePro(page){
 //   const res = await api.get('api')
-// }
+}
 
 }
 
