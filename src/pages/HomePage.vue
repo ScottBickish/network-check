@@ -20,10 +20,10 @@
     <template #modal-body> <PostForm /> </template>
   </Modal>
   <span>
-    <span v-if="page">
+    <span v-if="page !== null">
       <button @click="getPage(page)" class="btn btn-warning ms-2">Older</button>
     </span>
-    <span v-if="page">
+    <span v-if="page !== null">
       <button @click="getNewer(page)" class="btn btn-danger ms-2">Newer</button>
     </span>
   </span>
@@ -72,7 +72,6 @@ export default {
   setup() {
     onMounted(async () => {
       try {
-        AppState.totalPages;
         AppState.page = 1;
         await accountService.getAccount();
         await postsService.getAll();

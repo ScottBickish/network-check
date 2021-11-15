@@ -31,6 +31,14 @@
       <h1>Welcome to {{ profile.name }}'s profile page!</h1>
     </div>
   </center>
+  <span>
+    <span>
+      <button @click="getPage(page)" class="btn btn-warning m-3">Older</button>
+    </span>
+    <span>
+      <button @click="getNewer(page)" class="btn btn-danger m-3">Newer</button>
+    </span>
+  </span>
 
   <div class="d-flex justify-content-between">
     <div class="col-md-4 card elevation-2 rounded m-1">
@@ -72,6 +80,9 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
+import { logger } from "../utils/Logger";
+import { postsService } from "../services/PostsService";
+import { onMounted } from "@vue/runtime-core";
 export default {
   props: {
     profile: {
@@ -84,11 +95,31 @@ export default {
     },
   },
 
-  setup() {
+  setup(page) {
+    onMounted(async () => {
+      AppState.page = 1;
+      await postsService.getPage(page);
+      await postsService.getNewer(page);
+    });
     return {
+      post: computed(() => AppState.posts),
+      page: computed(() => AppState.page),
       extras: computed(() => AppState.extras),
       profile: computed(() => AppState.profile),
       account: computed(() => AppState.account),
+      // async getPage(page) {
+      //   try {
+
+      //   } catch (error) {
+      //     logger.error(error);
+      //   }
+      // },
+      // async getNewer(page) {
+      //   try {
+      //   } catch (error) {
+      //     logger.error(error);
+      //   }
+      // },
     };
   },
 };

@@ -37,14 +37,17 @@ async getPage(page){
   AppState.posts = res.data.posts
  
   AppState.page++
-  logger.log(res.data)
-  logger.log(AppState.page)
+  
+ 
 }
 async getNewer(page){
-  const res =await api.get('api/posts?page=' + page)
+  const res = await api.get('api/posts?page=' + page)
   AppState.posts = res.data.posts
   AppState.page--
 }
+// async getPagePro(page){
+//   const res = await api.get('api')
+// }
 
 }
 
