@@ -45,7 +45,7 @@
   </span>
 
   <div class="d-flex justify-content-between">
-    <div class="col-md-4 card elevation-2 rounded m-1">
+    <div class="col-md-3 card elevation-2 rounded m-1">
       <img class="rounded mt-2" :src="profile.coverImg" />
       <hr />
       <!-- NOTE if time fix the layout -->
@@ -66,16 +66,15 @@
       <p class="ms-2">Linkedin: {{ profile.linkedin }}</p>
       <p class="ms-2">Github: {{ profile.github }}</p>
     </div>
-
-    <div class="col-md-3">
+    <div class="col-md-6">
+      <div v-for="p in propost.posts" :key="p.id">
+        <Post :post="p" />
+      </div>
+    </div>
+    <div class="col-md-2">
       <div v-for="e in extras" :key="e.title">
         <Extras :extra="e" />
       </div>
-    </div>
-  </div>
-  <div class="row container-fluid">
-    <div v-for="p in propost.posts" :key="p.id" class="col-md-9">
-      <Post :post="p" />
     </div>
   </div>
 </template>
