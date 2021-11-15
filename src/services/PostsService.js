@@ -19,7 +19,8 @@ async search(query){
 
 // REVIEW how to get the data to render with computed? reactive? watcheffect?
 async like(id){
-  await api.post(`api/posts/${id}/like`)
+  const res = await api.post(`api/posts/${id}/like`)
+//find index, splice
   this.getAll()
 }
 async create(newpost){
@@ -38,6 +39,7 @@ async remove(id){
 async getPage(url = 'api/posts'){
   const res = await api.get(url)
   AppState.posts = res.data.posts
+  AppState.propost = res.data
   AppState.newer = res.data.newer
   AppState.older = res.data.older
   // AppState.posts = res.data.posts
@@ -48,6 +50,7 @@ async getPage(url = 'api/posts'){
 }
 async getNewer(url = 'api/posts'){
   const res = await api.get(url)
+  AppState.propost = res.data
   AppState.posts = res.data.posts
   AppState.newer = res.data.newer
   AppState.older = res.data.older

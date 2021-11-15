@@ -10,7 +10,8 @@ async getProfile(id){
 }
 async getProfilePostId(id){
 const res = await api.get(`api/profiles/${id}/posts`)
-
+AppState.newer = res.data.newer
+AppState.older = res.data.older
 AppState.propost = res.data
 }
 }
