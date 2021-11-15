@@ -67,7 +67,9 @@ export default {
       },
       async remove(id) {
         try {
-          await postsService.remove(id);
+          if (window.confirm("Are you sure you want to delete?")) {
+            await postsService.remove(id);
+          }
         } catch (error) {
           logger.error(error);
           Pop.toast(error.message, "Something went wrong...");

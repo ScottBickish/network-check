@@ -5,13 +5,14 @@ import { api } from "./AxiosService"
 class PostsService{
 async getAll(){
   const res = await api.get('api/posts')
-  // logger.log(res.data)
+
   AppState.posts = res.data.posts
 }
-//  FIXME  search function 
+
 async search(query){
- const res = await api.get('api/posts?query=', query)
- logger.log(res.data)
+ const res = await api.get('api/posts?query='+ query)
+
+ AppState.posts = res.data.posts
 }
 
 // REVIEW how to get the data to render with computed? reactive? watcheffect?
@@ -23,14 +24,26 @@ async create(newpost){
   const res = await api.post('api/posts', newpost)
    AppState.posts = [...AppState.posts, res.data]
    this.getAll()
-  // logger.log(res.data)
-  // AppState.posts = res.data
+
 }
 async remove(id){
   await api.delete('api/posts/' + id)
   AppState.posts = AppState.posts.filter(p => p.id !== AppState.posts.id)
   AppState.posts = AppState.posts
   this.getAll()
+}
+async getPage(page){
+  const res = await api.get('api/posts?page=' + page)
+  AppState.posts = res.data.posts
+ 
+  AppState.page++
+  logger.log(res.data)
+  logger.log(AppState.page)
+}
+async getNewer(page){
+  const res =await api.get('api/posts?page=' + page)
+  AppState.posts = res.data.posts
+  AppState.page--
 }
 
 }

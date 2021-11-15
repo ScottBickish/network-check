@@ -19,6 +19,14 @@
 
     <template #modal-body> <PostForm /> </template>
   </Modal>
+  <span>
+    <span v-if="page">
+      <button @click="getPage(page)" class="btn btn-warning ms-2">Older</button>
+    </span>
+    <span v-if="page">
+      <button @click="getNewer(page)" class="btn btn-danger ms-2">Newer</button>
+    </span>
+  </span>
 
   <div class="container-fluid">
     <div class="row justify-content-center">
@@ -32,6 +40,17 @@
           <Extras :extra="e" />
         </div>
       </div>
+    </div>
+  </div>
+  <div>
+    <div class="mt-2">
+      <!--      
+        class="btn me-1 text-white selectable"
+        :class="{
+          'btn-primary': page === totalPages,
+          'btn-dark': page !== totalPages,
+        }"
+        :disabled="page === totalPages" -->
     </div>
   </div>
 </template>
@@ -53,28 +72,38 @@ export default {
   setup() {
     onMounted(async () => {
       try {
+        AppState.totalPages;
+        AppState.page = 1;
         await accountService.getAccount();
         await postsService.getAll();
         await extrasService.getAll();
-        logger.log(AppState.account);
       } catch (error) {
         logger.error(error);
         Pop.toast(error.message, "error with something...");
       }
     });
-    // onMounted(async () => {
-    //   try {
 
-    //   } catch (error) {
-    //     logger.error(error);
-    //     Pop.toast(error.message, "something went wrong...");
-    //   }
-    // });
     return {
       posts: computed(() => AppState.posts),
       extras: computed(() => AppState.extras),
       account: computed(() => AppState.account),
-      // profile: computed(() => AppState.profiles),
+      page: computed(() => AppState.page),
+      totalPages: computed(() => AppState.totalPages),
+      profile: computed(() => AppState.profiles),
+      async getPage(page) {
+        try {
+          await postsService.getPage(page);
+        } catch (error) {
+          logger.error(error);
+        }
+      },
+      async getNewer(page) {
+        try {
+          await postsService.getNewer(page);
+        } catch (error) {
+          logger.error(error);
+        }
+      },
     };
   },
 };

@@ -7,9 +7,8 @@
           v-model="query"
           type="text"
           name="search"
-          required
           class="form-control bg-white border-0"
-          placeholder="search"
+          placeholder="Search Posts By Content..."
         />
         <button class="btn px-2 py-0" type="submit">
           <i class="mdi mdi-magnify f-18"></i>
@@ -26,6 +25,12 @@ import { AppState } from "../AppState";
 import { logger } from "../utils/Logger";
 import { postsService } from "../services/PostsService";
 export default {
+  // props: {
+  //   post: {
+  //     type: Object,
+  //     required: true,
+  //   },
+  // },
   setup() {
     const query = ref("");
     return {

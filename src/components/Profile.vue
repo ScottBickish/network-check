@@ -7,10 +7,23 @@
   <div class="text-end" v-if="account.id === profile.id">
     <center>
       <button
-        class="mdi mdi-plus bg-success m-3"
+        title="update profile"
+        class="mdi mdi-plus bg-primary m-3"
         data-bs-toggle="modal"
         data-bs-target="#ProfileForm"
       ></button>
+      <button
+        class="mdi mdi-plus bg-success m-3"
+        data-bs-toggle="modal"
+        data-bs-target="#PostForm"
+        title="make a post"
+      ></button>
+
+      <Modal id="PostForm">
+        <template #modal-title> What's on your mind? </template>
+
+        <template #modal-body> <PostForm /> </template>
+      </Modal>
     </center>
   </div>
   <center>
