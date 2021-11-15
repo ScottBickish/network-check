@@ -45,7 +45,7 @@
   </span>
 
   <div class="d-flex justify-content-between">
-    <div class="col-md-3 card elevation-2 rounded m-1">
+    <div class="col-md-3 card elevation-2 rounded m-1 height">
       <img class="rounded mt-2" :src="profile.coverImg" />
       <hr />
       <!-- NOTE if time fix the layout -->
@@ -140,5 +140,8 @@ export default {
 }
 .fit {
   display: inline;
+}
+.height {
+  height: 135vh;
 }
 </style>
